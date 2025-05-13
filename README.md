@@ -15,7 +15,7 @@ ggplot(diamonds, aes(x = carat)) +
   geom_histogram(binwidth = 0.5)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-279-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 > Let’s take a look at the distribution of carat for smaller diamonds.
 
@@ -27,7 +27,7 @@ ggplot(smaller, aes(x = carat)) +
   geom_histogram(binwidth = 0.01)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-280-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
 ## \>Unusual Values
 
@@ -38,7 +38,7 @@ ggplot(diamonds, aes(x = y)) +
   geom_histogram(binwidth = 0.5)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-281-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
 > There are so many observations in the common bins that the rare bins are very short, making it very difficult to see them (although maybe if you stare intently at 0 you’ll spot something). To make it easy to see the unusual values, we need to zoom to small values of the y-axis with coord_cartesian():
 
@@ -48,7 +48,7 @@ ggplot(diamonds, aes(x = y)) +
   coord_cartesian(ylim = c(0, 50))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-282-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 > This allows us to see that there are three unusual values: 0, ~30, and ~60. We pluck them out with dplyr:
 
@@ -95,7 +95,7 @@ diamonds %>%
        x = "Value (mm)", y = "Count")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-284-1.png)<!-- --> \>Most values for x and y fall between 3 mm and 10 mm, suggesting they represent the length and width. The z values are generally smaller, typically between 2 mm and 6 mm, which aligns with the depth of a diamond (top to bottom). \>Also notice that there are outliers in the data set with some diamonds having dimensions of 0 which is impractical —
+![](README_files/figure-gfm/unnamed-chunk-26-1.png)<!-- --> \>Most values for x and y fall between 3 mm and 10 mm, suggesting they represent the length and width. The z values are generally smaller, typically between 2 mm and 6 mm, which aligns with the depth of a diamond (top to bottom). \>Also notice that there are outliers in the data set with some diamonds having dimensions of 0 which is impractical —
 
 ``` r
 # Boxplots to detect outliers visually
@@ -107,7 +107,7 @@ diamonds %>%
   labs(title = "Boxplots of x, y, and z", y = "Value (mm)", x = "Dimension")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-285-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 
 > 2.  Explore the distribution of price. Do you discover anything unusual or surprising? (Hint: Carefully think about the binwidth and make sure you try a wide range of values.)
 
@@ -124,7 +124,7 @@ ggplot(diamonds, aes(x = price)) +
   labs(title = "Distribution of Diamond Prices", x = "Price (USD)", y = "Count")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-286-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
 
 > The plot is highly right-skewed distribution. We can see that Most diamonds are priced under \$5,000. A long tail extends toward high-priced diamonds, with some over \$15,000.
 
@@ -137,7 +137,7 @@ ggplot(diamonds, aes(x = price)) +
   labs(title = "Distribution of Diamond Prices", x = "Price (USD)", y = "Count")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-287-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
 
 > 3.How many diamonds are 0.99 carat? How many are 1 carat? What do you think is the cause of the difference?
 
@@ -166,7 +166,7 @@ ggplot(diamonds, aes(x = price)) +
 
     ## Warning: Removed 2 rows containing missing values or values outside the scale range (`geom_bar()`).
 
-![](README_files/figure-gfm/unnamed-chunk-289-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
 
 > xlim()/ylim() filters data before plotting .Only the data within the limits is used to calculate bins. If only part of a bar shows, the entire bar is dropped, because the data outside the limit is excluded Binning is re-calculated — no partial bars allowed
 
@@ -178,7 +178,7 @@ ggplot(diamonds, aes(x = price)) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](README_files/figure-gfm/unnamed-chunk-290-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
 
 > EXCERCISE 10.4.1
 
@@ -218,7 +218,7 @@ ggplot(flights, aes(x = sched_dep_time, fill = cancelled)) +
   theme_minimal()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-292-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
 
 > Now lets plot the frequency plot with scales set to “free_y”
 
@@ -240,7 +240,7 @@ ggplot(flights, aes(x = sched_dep_time, fill = cancelled)) +
   theme_minimal()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-293-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
 
 > Now lets plot the frequency plot with scales set to “free_x”
 
@@ -262,7 +262,7 @@ ggplot(flights, aes(x = sched_dep_time, fill = cancelled)) +
   theme_minimal()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-294-1.png)<!-- --> \>Now lets plot the frequency plot with scales set to “fixed”
+![](README_files/figure-gfm/unnamed-chunk-36-1.png)<!-- --> \>Now lets plot the frequency plot with scales set to “fixed”
 
 ``` r
 # Add a 'cancelled' column: TRUE if dep_time is NA
@@ -282,4 +282,4 @@ ggplot(flights, aes(x = sched_dep_time, fill = cancelled)) +
   theme_minimal()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-295-1.png)<!-- --> \>
+![](README_files/figure-gfm/unnamed-chunk-37-1.png)<!-- --> \>
