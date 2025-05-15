@@ -28,24 +28,11 @@ library(tidyverse)
 > (carat) of ~54,000 diamonds from the diamonds dataset. Since carat is
 > a numerical variable, we can use a histogram:
 
-``` r
-ggplot(diamonds, aes(x = carat)) +
-  geom_histogram(binwidth = 0.5)
-```
-
-![](EDA_1_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+<img src="figures/histo1-1.png" style="display: block; margin: auto;" />
 
 > Let’s take a look at the distribution of carat for smaller diamonds.
 
-``` r
-smaller <- diamonds |> 
-  filter(carat < 3)
-
-ggplot(smaller, aes(x = carat)) +
-  geom_histogram(binwidth = 0.01)
-```
-
-![](EDA_1_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+<img src="figures/histo2-1.png" style="display: block; margin: auto;" />
 
 ## \>Unusual Values
 
@@ -58,12 +45,7 @@ ggplot(smaller, aes(x = carat)) +
 > distribution of the y variable from the diamonds dataset. The only
 > evidence of outliers is the unusually wide limits on the x-axis.
 
-``` r
-ggplot(diamonds, aes(x = y)) + 
-  geom_histogram(binwidth = 0.5)
-```
-
-![](EDA_1_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+<img src="figures/histo3-1.png" style="display: block; margin: auto;" />
 
 > There are so many observations in the common bins that the rare bins
 > are very short, making it very difficult to see them (although maybe
@@ -71,24 +53,10 @@ ggplot(diamonds, aes(x = y)) +
 > see the unusual values, we need to zoom to small values of the y-axis
 > with coord_cartesian():
 
-``` r
-ggplot(diamonds, aes(x = y)) + 
-  geom_histogram(binwidth = 0.5) +
-  coord_cartesian(ylim = c(0, 50))
-```
-
-![](EDA_1_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+<img src="figures/histo4-1.png" style="display: block; margin: auto;" />
 
 > This allows us to see that there are three unusual values: 0, ~30, and
 > ~60. We pluck them out with dplyr:
-
-``` r
-unusual <- diamonds |> 
-  filter(y < 3 | y > 20) |> 
-  select(price, x, y, z) |>
-  arrange(y)
-unusual
-```
 
     ## # A tibble: 9 × 4
     ##   price     x     y     z
@@ -103,21 +71,6 @@ unusual
     ## 8  2075  5.15  31.8  5.12
     ## 9 12210  8.09  58.9  8.06
 
-``` r
-#> # A tibble: 9 × 4
-#>   price     x     y     z
-#>   <int> <dbl> <dbl> <dbl>
-#> 1  5139  0      0    0   
-#> 2  6381  0      0    0   
-#> 3 12800  0      0    0   
-#> 4 15686  0      0    0   
-#> 5 18034  0      0    0   
-#> 6  2130  0      0    0   
-#> 7  2130  0      0    0   
-#> 8  2075  5.15  31.8  5.12
-#> 9 12210  8.09  58.9  8.06
-```
-
 ## \>EXCERCISES
 
 > Exercise 10.3.3
@@ -127,40 +80,15 @@ unusual
 > decide which dimension is the length, width, and depth.
 
 `To explore distributions between x,y and z , we are going to plot histograms for each of the variables`
+<img src="figures/histo6-1.png" style="display: block; margin: auto;" />
+\>Most values for x and y fall between 3 mm and 10 mm, suggesting they
+represent the length and width. The z values are generally smaller,
+typically between 2 mm and 6 mm, which aligns with the depth of a
+diamond (top to bottom). \>Also notice that there are outliers in the
+data set with some diamonds having dimensions of 0 which is impractical
+—
 
-``` r
-# Load the necessary library
-library(tidyverse)
-
-# Plot histograms of x, y, and z
-diamonds %>%
-  select(x, y, z) %>%
-  pivot_longer(everything(), names_to = "dimension", values_to = "value") %>%
-  ggplot(aes(x = value)) +
-  geom_histogram(bins = 50, fill = "steelblue", color = "white") +
-  facet_wrap(~dimension, scales = "free") +
-  labs(title = "Distributions of x, y, and z in diamonds dataset",
-       x = "Value (mm)", y = "Count")
-```
-
-![](EDA_1_files/figure-gfm/unnamed-chunk-7-1.png)<!-- --> \>Most values
-for x and y fall between 3 mm and 10 mm, suggesting they represent the
-length and width. The z values are generally smaller, typically between
-2 mm and 6 mm, which aligns with the depth of a diamond (top to bottom).
-\>Also notice that there are outliers in the data set with some diamonds
-having dimensions of 0 which is impractical —
-
-``` r
-# Boxplots to detect outliers visually
-diamonds %>%
-  select(x, y, z) %>%
-  pivot_longer(cols = everything(), names_to = "dimension", values_to = "value") %>%
-  ggplot(aes(x = dimension, y = value)) +
-  geom_boxplot(outlier.color = "red", fill = "lightblue") +
-  labs(title = "Boxplots of x, y, and z", y = "Value (mm)", x = "Dimension")
-```
-
-![](EDA_1_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+<img src="figures/box-plots-1.png" style="display: block; margin: auto;" />
 
 > 2.  Explore the distribution of price. Do you discover anything
 >     unusual or surprising? (Hint: Carefully think about the binwidth
@@ -170,16 +98,7 @@ diamonds %>%
 
 > Again we draw a histogram to visualize the distribution
 
-``` r
-library(tidyverse)
-
-# Histogram of diamond prices
-ggplot(diamonds, aes(x = price)) +
-  geom_histogram(bins =50, fill = "steelblue", color = "white") +
-  labs(title = "Distribution of Diamond Prices", x = "Price (USD)", y = "Count")
-```
-
-![](EDA_1_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+<img src="figures/histo7 -1.png" style="display: block; margin: auto;" />
 
 > The plot is highly right-skewed distribution. We can see that Most
 > diamonds are priced under \$5,000. A long tail extends toward
@@ -187,26 +106,10 @@ ggplot(diamonds, aes(x = price)) +
 
 > Lets increase binwidth and see
 
-``` r
-# Histogram of diamond prices
-ggplot(diamonds, aes(x = price)) +
-  geom_histogram(bins = 100, fill = "steelblue", color = "white") +
-  labs(title = "Distribution of Diamond Prices", x = "Price (USD)", y = "Count")
-```
-
-![](EDA_1_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+<img src="figures/histo8-1.png" style="display: block; margin: auto;" />
 
 > 3.How many diamonds are 0.99 carat? How many are 1 carat? What do you
 > think is the cause of the difference?
-
-``` r
-library(tidyverse)
-
-# Count diamonds with 0.99 and 1 carat
-diamonds %>%
-  filter(carat %in% c(0.99, 1)) %>%
-  count(carat)
-```
 
     ## # A tibble: 2 × 2
     ##   carat     n
@@ -224,36 +127,20 @@ diamonds %>%
 >     zooming in on a histogram. What happens if you leave binwidth
 >     unset? What happens if you try and zoom so only half a bar shows?
 
-``` r
-ggplot(diamonds, aes(x = price)) + 
-  geom_histogram() + 
-  xlim(0, 5000)+labs(title = "For data that is limited with xlim()")
-```
-
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-
     ## Warning: Removed 14714 rows containing non-finite outside the scale range
     ## (`stat_bin()`).
 
     ## Warning: Removed 2 rows containing missing values or values outside the scale range
     ## (`geom_bar()`).
 
-![](EDA_1_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+<img src="figures/histo9 -1.png" style="display: block; margin: auto;" />
 
 > xlim()/ylim() filters data before plotting .Only the data within the
 > limits is used to calculate bins. If only part of a bar shows, the
 > entire bar is dropped, because the data outside the limit is excluded
 > Binning is re-calculated — no partial bars allowed
 
-``` r
-ggplot(diamonds, aes(x = price)) + 
-  geom_histogram() + 
-  coord_cartesian(xlim = c(0, 5000))
-```
-
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-
-![](EDA_1_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+<img src="figures/histo10-1.png" style="display: block; margin: auto;" />
 
 > EXCERCISE 10.4.1
 
@@ -283,87 +170,15 @@ library(nycflights13)
 
 > Now lets plot the frequency plot with scales set to “free”
 
-``` r
-# Add a 'cancelled' column: TRUE if dep_time is NA
-flights <- flights %>%
-  mutate(cancelled = is.na(dep_time))
-
-# Plot histogram of scheduled departure time (24-hour format)
-ggplot(flights, aes(x = sched_dep_time, fill = cancelled)) +
-  geom_histogram(binwidth = 100, position = "identity", alpha = 0.6) +
-  facet_wrap(~cancelled, scales = "free") +
-  labs(
-    title = "Scheduled Departure Times by Cancellation Status with scale set to free",
-    x = "Scheduled Departure Time (hhmm)",
-    y = "Count",
-    fill = "Cancelled"
-  ) +
-  theme_minimal()
-```
-
-![](EDA_1_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+<img src="figures/histo11-1.png" style="display: block; margin: auto;" />
 
 > Now lets plot the frequency plot with scales set to “free_y”
 
-``` r
-# Add a 'cancelled' column: TRUE if dep_time is NA
-flights <- flights %>%
-  mutate(cancelled = is.na(dep_time))
-
-# Plot histogram of scheduled departure time (24-hour format)
-ggplot(flights, aes(x = sched_dep_time, fill = cancelled)) +
-  geom_histogram(binwidth = 100, position = "identity", alpha = 0.6) +
-  facet_wrap(~cancelled, scales = "free_y") +
-  labs(
-    title = "Scheduled Departure Times by Cancellation Status with scale set to free_y",
-    x = "Scheduled Departure Time (hhmm)",
-    y = "Count",
-    fill = "Cancelled"
-  ) +
-  theme_minimal()
-```
-
-![](EDA_1_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+<img src="figures/histo12 -1.png" style="display: block; margin: auto;" />
 
 > Now lets plot the frequency plot with scales set to “free_x”
 
-``` r
-# Add a 'cancelled' column: TRUE if dep_time is NA
-flights <- flights %>%
-  mutate(cancelled = is.na(dep_time))
+<img src="figures/histo13 -1.png" style="display: block; margin: auto;" />
+\>Now lets plot the frequency plot with scales set to “fixed”
 
-# Plot histogram of scheduled departure time (24-hour format)
-ggplot(flights, aes(x = sched_dep_time, fill = cancelled)) +
-  geom_histogram(binwidth = 100, position = "identity", alpha = 0.6) +
-  facet_wrap(~cancelled, scales = "free_x") +
-  labs(
-    title = "Scheduled Departure Times by Cancellation Status with scale set to free_x",
-    x = "Scheduled Departure Time (hhmm)",
-    y = "Count",
-    fill = "Cancelled"
-  ) +
-  theme_minimal()
-```
-
-![](EDA_1_files/figure-gfm/unnamed-chunk-17-1.png)<!-- --> \>Now lets
-plot the frequency plot with scales set to “fixed”
-
-``` r
-# Add a 'cancelled' column: TRUE if dep_time is NA
-flights <- flights %>%
-  mutate(cancelled = is.na(dep_time))
-
-# Plot histogram of scheduled departure time (24-hour format)
-ggplot(flights, aes(x = sched_dep_time, fill = cancelled)) +
-  geom_histogram(binwidth = 100, position = "identity", alpha = 0.6) +
-  facet_wrap(~cancelled, scales = "free_x") +
-  labs(
-    title = "Scheduled Departure Times by Cancellation Status with scale set to fixed",
-    x = "Scheduled Departure Time (hhmm)",
-    y = "Count",
-    fill = "Cancelled"
-  ) +
-  theme_minimal()
-```
-
-![](EDA_1_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+<img src="figures/histo14 -1.png" style="display: block; margin: auto;" />
